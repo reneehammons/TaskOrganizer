@@ -1,13 +1,74 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+
+* {
+  /*box-sizing: border-box;*/
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /*padding: 0;*/
+} 
+
+.main-container{
+  margin: 30px;
+  border: 1px solid salmon;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-family: 'Oswald', sans-serif;
+  background-color: FFF7F3;
+}
+
+h1{
+  color: salmon;
+}
+
+.header{
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add-button{
+  margin-right: 10px;
+  margin-top: 15px;
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  font-weight: lighter;
+  background-color:salmon;
+  padding: 5px;
+  font-size: 14px;
+  border: 1px solid salmon; 
+}
+
+.taskBox{
+  background-color: lightgray;
+  margin: 5px 10px 5px 10px;
+  padding: 1px;
+}
+
+.taskBox.Highlight{
+  border: 3px solid salmon;
+}
+
+.taskName{
+ margin-left: 5px;
+}
+
+.taskDayTime{
+ margin-left: 10px;
+}
+
+.glyphicon.glyphicon-trash{
+  margin-top: -12px;
+  margin-right: 20px;
+  /*size: 50px;  */
+  float: right;
+  color: salmon;
+  cursor: pointer;
+}
+
+.addTaskForm{
+  margin: 20px 20px 20px 20px;
+  border: black;
 }
