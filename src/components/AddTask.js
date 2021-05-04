@@ -1,12 +1,36 @@
 import { useState } from 'react'
 
-const AddTask = () => {
+const AddTask = ({onAdd}) => {
     const [text, setText] = useState('')
     const [date, setDate] = useState('')
     const [time, setTime] = useState('')
 
+    const onSubmit = (e) => {
+        e.preventDefault()
+
+        if (!text){
+            alert('Please add a task!')
+            return
+        }
+        if (!date){
+            alert('Please add a date!')
+            return
+        }
+        if (!time){
+            alert('Please add a time!')
+            return
+        }
+
+        onAdd({ text, date, time})
+
+        setText('')
+        setDate('')
+        setTime('')
+    }
+
+
     return (
-        <form className='addTaskForm'>
+        <form className='addTaskForm' onSubmit={onSubmit}>
             <div className="form-group">
                 <label>Task:</label>
                 <input 
