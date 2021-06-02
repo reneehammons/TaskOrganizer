@@ -1,34 +1,30 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from './components/Header'
 import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
+import { findRenderedDOMComponentWithTag } from 'react-dom/test-utils'
 
 function App() {
   const [dropdown, setDropdown] = useState(false)
 
-  const [tasks, setTasks] = useState([
-    {
-      id: 'task1',
-      text: 'Code React Project',
-      date: 'April 11th, 2021',
-      time: '11:59pm',
-      highlight: false,
-    },
-    {
-      id: 'task2',
-      text: 'Learn SASS',
-      date: 'April 14th, 2021',
-      time: '11:58pm',
-      highlight: false,
-    },
-    {
-      id: 'task3',
-      text: 'Learn Bootstrap',
-      date: 'April 17th, 2021',
-      time: '11:57pm',
-      highlight: false,
+  const [tasks, setTasks] = useState([])
+
+  useEffect(() => {
+    const getTasks= async () => {
+      const tasksFromServer = await fetchTasks()
+      setTasks(tasksFromServer)
     }
-  ])
+
+    getTasks()
+  }, [])
+
+  //Fetch Tasks
+  const fetchTasks = async () => {
+    const response = await fetch('http://localhost:5000/tasks')
+    const data = await response.json()
+
+    return data
+  }
 
   //addTaskDropdown sets the dropdown state to a boolean
   const addTaskDropdown = () => {
@@ -44,7 +40,11 @@ function App() {
   }
 
   //deleteTask removes the task from the tasks state
-  const deleteTask = (id) => {
+  const deleteTask = async (id) => {
+    await fetch(`http://localhost:5000/tasks/${id}`, {
+      method: 'DELETE'
+    })
+
     setTasks(tasks.filter((task) => task.id !== id))
   }
 

@@ -1,0 +1,18 @@
+{
+  "tasks": [
+    {
+      "id": "task2",
+      "text": "Learn SASS",
+      "date": "April 14th, 2021",
+      "time": "11:58pm",
+      "highlight": false
+    },
+    {
+      "id": "task3",
+      "text": "Learn Bootstrap",
+      "date": "April 17th, 2021",
+      "time": "11:57pm",
+      "highlight": false
+    }
+  ]
+}
