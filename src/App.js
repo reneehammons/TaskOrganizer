@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import Header from './components/Header'
 import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
-import { findRenderedDOMComponentWithTag } from 'react-dom/test-utils'
 
 function App() {
   const [dropdown, setDropdown] = useState(false)
@@ -26,32 +25,62 @@ function App() {
     return data
   }
 
+  //Fetch Task
+  const fetchTask = async (id) => {
+    const response = await fetch(`http://localhost:5000/tasks/${id}`)
+    const data = await response.json()
+
+    return data
+  }
+
   //addTaskDropdown sets the dropdown state to a boolean
   const addTaskDropdown = () => {
     setDropdown(!dropdown)
   }
 
   //addTask adds the inputed task to the tasks state
-  const addTask = (task) => {
-    //id generates a random number for the task id
-    const id = Math.floor(Math.random()*10000) + 1
-    const newTask = {id, ...task}
-    setTasks([...tasks, newTask])
+  const addTask = async (task) => {
+    const response = await fetch('http://localhost:5000/tasks', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(task)
+    })
+
+    const data = await response.json()
+
+    setTasks([...tasks, data])
   }
 
   //deleteTask removes the task from the tasks state
   const deleteTask = async (id) => {
-    await fetch(`http://localhost:5000/tasks/${id}`, {
-      method: 'DELETE'
+    const response = await fetch(`http://localhost:5000/tasks/${id}`, {
+      method: 'DELETE',
     })
 
-    setTasks(tasks.filter((task) => task.id !== id))
+    response.status === 200 
+      ? setTasks(tasks.filter((task) => task.id !== id)) 
+      : alert('Error Deleting Task')
   }
 
   //highlightTask 
-  const highlightTask = (id, highlight) => {
+  const highlightTask = async (id) => {
+    const taskToHighlight = await fetchTask(id)
+    const updatedTask = {...taskToHighlight, highlight: !taskToHighlight.highlight}
+
+    const response = await fetch(`http://localhost:5000/tasks/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updatedTask)
+    })
+
+    const data = await response.json()
+
     setTasks(tasks.map((task) => 
-      task.id === id ? { ...task, highlight: !task.highlight } : task)
+      task.id === id ? { ...task, highlight: data.highlight } : task)
     )
   }
 
