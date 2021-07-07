@@ -1,9 +1,11 @@
 import { useState } from 'react'
 
 const AddTask = ({onAdd}) => {
+    const [id, setId] = useState(Math.floor(Math.random() * 10000) + 1)
     const [text, setText] = useState('')
     const [date, setDate] = useState('')
     const [time, setTime] = useState('')
+    const [highlight, setHighlight] = useState(false)
 
     const onSubmit = (e) => {
         e.preventDefault()
@@ -19,13 +21,15 @@ const AddTask = ({onAdd}) => {
         if (!time){
             alert('Please add a time!')
             return
+        
         }
+        onAdd({ id, text, date, time, highlight})
 
-        onAdd({ text, date, time})
-
+        setId('')
         setText('')
         setDate('')
         setTime('')
+        setHighlight('')
     }
 
 
@@ -66,4 +70,5 @@ const AddTask = ({onAdd}) => {
         </form>
     )
 }
- export default AddTask
+
+export default AddTask

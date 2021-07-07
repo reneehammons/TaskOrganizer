@@ -1,6 +1,6 @@
 const Task = ({ task, onDelete, onHighlight }) => {
     return (
-        <div className= {`taskBox ${task.highlight ? 'Highlight' : ''}`} onDoubleClick={() => onHighlight(task.id, task.highlight)}>
+        <div className= {`taskBox ${task.highlight ? 'Highlight' : ''}`} onDoubleClick={() => onHighlight(task.id)}>
             <h4 className='taskName'>
                 {task.text}  
             </h4>

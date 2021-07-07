@@ -1,4 +1,4 @@
-const Button = ({text, onClick, dropdown }) => {
+const Button = ({onClick, text, dropdown }) => {
     return (
         <div>
             <button 
