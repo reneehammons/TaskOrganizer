@@ -10,19 +10,6 @@ const AddTask = ({onAdd}) => {
     const onSubmit = (e) => {
         e.preventDefault()
 
-        if (!text){
-            alert('Please add a task!')
-            return
-        }
-        if (!date){
-            alert('Please add a date!')
-            return
-        }
-        if (!time){
-            alert('Please add a time!')
-            return
-        
-        }
         onAdd({ id, text, date, time, highlight})
 
         setId('')
@@ -31,7 +18,6 @@ const AddTask = ({onAdd}) => {
         setTime('')
         setHighlight('')
     }
-
 
     return (
         <form className='addTaskForm' onSubmit={onSubmit}>
@@ -42,27 +28,27 @@ const AddTask = ({onAdd}) => {
                     className="form-control" 
                     placeholder='Type your task..'
                     value={text}
-                    onChange={(e) => setText(e.target.value)} 
+                    onChange={(e) => setText(e.target.value)}
                 />
             </div>
             <div className="form-group">
-                <label>Date Of Task </label>
+                <label>Date Of Task: </label>
                 <input 
-                    type='text' 
-                    className="form-control" 
+                    type="date"
+                    className="form-control"
                     placeholder='MM/DD/YYYY'
                     value={date}
-                    onChange={(e) => setDate(e.target.value)}
+                    onChange={(e) => setDate(e.target.value)} 
                 />
-            </div>
+            </div>  
             <div className="form-group">
-                <label>Time of Task </label>
+                <label>Time of Task: </label>
                 <input 
-                    type='text' 
+                    type="time"
                     className="form-control" 
                     placeholder='11:59pm'
                     value={time} 
-                    onChange={(e) => setTime(e.target.value)}  
+                    onChange={(e) => setTime(e.target.value)}
                 />
             </div>
 
