@@ -5,7 +5,7 @@ const Task = ({ task, onDelete, onHighlight }) => {
                 {task.text}  
             </h4>
             <span className='glyphicon glyphicon-trash' onClick={() => onDelete(task.id)}></span>
-            <p className='taskDayTime'>{task.date} at {task.time}</p> 
+            <p className='taskDayTime'>{task.date} at {task.militaryTime} {task.meridiem}</p> 
         </div>
     )
 }

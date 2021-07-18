@@ -40,6 +40,7 @@ function App() {
 
   //addTask adds the inputed task to the tasks state
   const addTask = async (task) => {
+    
     const response = await fetch('http://localhost:5000/tasks', {
       method: 'POST',
       headers: {
