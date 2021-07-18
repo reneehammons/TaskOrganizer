@@ -5,40 +5,46 @@ const AddTask = ({onAdd}) => {
     const [text, setText] = useState('')
     const [date, setDate] = useState('')
     const [militaryTime, setMilitaryTime] = useState('')
-    //const [regularTime, setRegularTime] = useState('')
-    //const [meridiem, setMeridiem] = useState('')
+    const [regularTime, setRegularTime] = useState('')
+    const [meridiem, setMeridiem] = useState('')
     const [highlight, setHighlight] = useState(false)
 
-    // const convertToRegularTime = (militaryTime) => {
-    //     if (militaryTime >= 12){
-    //         var adjustedTime
-    //         adjustedTime = militaryTime - 12
-    //         setRegularTime(adjustedTime)
-    //         setMeridiem('PM')
-    //     } else {
-    //         setRegularTime(militaryTime)
-    //         setMeridiem('AM')
-    //     }
-    // }
+
+    const convertToRegularTime = (militaryTime) => {
+        const arrayOfHoursAndMinutesString = militaryTime.split(":")
+        const hoursInt = parseInt(arrayOfHoursAndMinutesString[0])
+        if (hoursInt >= 12){
+            var adjustedToRegularTime
+            adjustedToRegularTime = hoursInt - 12
+            adjustedToRegularTime = adjustedToRegularTime.toString()
+            adjustedToRegularTime += ':' + arrayOfHoursAndMinutesString[1]
+            setRegularTime(adjustedToRegularTime)
+            setMeridiem('PM')
+        } else {
+            adjustedToRegularTime = hoursInt.toString()
+            adjustedToRegularTime += ':' + arrayOfHoursAndMinutesString[1]
+            setRegularTime(adjustedToRegularTime)
+            setMeridiem('AM')
+        }
+    }
 
     const onSubmit = (e) => {
         e.preventDefault()
 
-        onAdd({ id, text, date, militaryTime, highlight})
-        //onAdd({ id, text, date, militaryTime, regularTime, meridiem, highlight})
-
-        //convertToRegularTime(militaryTime)
+        onAdd({ id, text, date, militaryTime, regularTime, meridiem, highlight})
 
         setId('')
         setText('')
         setDate('')
         setMilitaryTime('')
-        // setRegularTime('')
-        // setMeridiem('')
         setHighlight('')
+    }
 
-        //console.log('time: ' + regularTime + 'am/pm: ' + meridiem)
-        
+    const settingTimeStateAndConvertingTime = (e) => {
+        //sets initial input to militaryTime state
+        setMilitaryTime(e.target.value)
+        //converts military time to regular time and updates state
+        convertToRegularTime(e.target.value)
     }
 
     return (
@@ -72,7 +78,7 @@ const AddTask = ({onAdd}) => {
                     className="form-control" 
                     placeholder='11:59pm'
                     value={militaryTime} 
-                    onChange={(e) => setMilitaryTime(e.target.value)}
+                    onChange={settingTimeStateAndConvertingTime}
                     required
                 />
             </div>
