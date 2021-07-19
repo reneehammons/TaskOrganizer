@@ -4,6 +4,7 @@ const AddTask = ({onAdd}) => {
     const [id, setId] = useState(Math.floor(Math.random() * 10000) + 1)
     const [text, setText] = useState('')
     const [date, setDate] = useState('')
+    const [desiredDateDisplay, setDesiredDateDisplay,] = useState('')
     const [militaryTime, setMilitaryTime] = useState('')
     const [regularTime, setRegularTime] = useState('')
     const [meridiem, setMeridiem] = useState('')
@@ -13,13 +14,22 @@ const AddTask = ({onAdd}) => {
     const convertToRegularTime = (militaryTime) => {
         const arrayOfHoursAndMinutesString = militaryTime.split(":")
         const hoursInt = parseInt(arrayOfHoursAndMinutesString[0])
-        if (hoursInt >= 12){
+        if (hoursInt > 12){
             var adjustedToRegularTime
             adjustedToRegularTime = hoursInt - 12
             adjustedToRegularTime = adjustedToRegularTime.toString()
             adjustedToRegularTime += ':' + arrayOfHoursAndMinutesString[1]
             setRegularTime(adjustedToRegularTime)
             setMeridiem('PM')
+        } else if (hoursInt === 12){
+            setRegularTime(militaryTime)
+            setMeridiem('PM')
+        } else if (hoursInt === 0){
+            adjustedToRegularTime = hoursInt + 12
+            adjustedToRegularTime = adjustedToRegularTime.toString()
+            adjustedToRegularTime += ':' + arrayOfHoursAndMinutesString[1]
+            setRegularTime(adjustedToRegularTime)
+            setMeridiem('AM')
         } else {
             adjustedToRegularTime = hoursInt.toString()
             adjustedToRegularTime += ':' + arrayOfHoursAndMinutesString[1]
@@ -28,10 +38,16 @@ const AddTask = ({onAdd}) => {
         }
     }
 
+    const convertDateToDesiredFormat = (date) => {
+        var dateArrayString = date.split('-')
+        var desiredDateDisplayTemp = dateArrayString[1] + '/' + dateArrayString[2] + '/' + dateArrayString[0]
+        setDesiredDateDisplay(desiredDateDisplayTemp)
+    }
+
     const onSubmit = (e) => {
         e.preventDefault()
 
-        onAdd({ id, text, date, militaryTime, regularTime, meridiem, highlight})
+        onAdd({ id, text, date, desiredDateDisplay, militaryTime, regularTime, meridiem, highlight})
 
         setId('')
         setText('')
@@ -45,6 +61,11 @@ const AddTask = ({onAdd}) => {
         setMilitaryTime(e.target.value)
         //converts military time to regular time and updates state
         convertToRegularTime(e.target.value)
+    }
+
+    const settingDateStateAndConvertingDate = (e) => {
+        setDate(e.target.value)
+        convertDateToDesiredFormat(e.target.value)
     }
 
     return (
@@ -67,7 +88,7 @@ const AddTask = ({onAdd}) => {
                     className="form-control"
                     placeholder='MM/DD/YYYY'
                     value={date}
-                    onChange={(e) => setDate(e.target.value)} 
+                    onChange={settingDateStateAndConvertingDate} 
                     required
                 />
             </div>  
