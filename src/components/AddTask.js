@@ -10,7 +10,18 @@ const AddTask = ({onAdd}) => {
     const [meridiem, setMeridiem] = useState('')
     const [highlight, setHighlight] = useState(false)
 
+    const settingTimeStateAndConvertingTime = (e) => {
+        //sets initial input to militaryTime state
+        setMilitaryTime(e.target.value)
+        //converts military time to regular time and updates state
+        convertToRegularTime(e.target.value)
+    }
 
+    const settingDateStateAndConvertingDate = (e) => {
+        setDate(e.target.value)
+        convertDateToDesiredFormat(e.target.value)
+    }
+    
     const convertToRegularTime = (militaryTime) => {
         const arrayOfHoursAndMinutesString = militaryTime.split(":")
         const hoursInt = parseInt(arrayOfHoursAndMinutesString[0])
@@ -52,20 +63,11 @@ const AddTask = ({onAdd}) => {
         setId('')
         setText('')
         setDate('')
+        setDesiredDateDisplay('')
         setMilitaryTime('')
+        setRegularTime('')
+        setMeridiem('')
         setHighlight('')
-    }
-
-    const settingTimeStateAndConvertingTime = (e) => {
-        //sets initial input to militaryTime state
-        setMilitaryTime(e.target.value)
-        //converts military time to regular time and updates state
-        convertToRegularTime(e.target.value)
-    }
-
-    const settingDateStateAndConvertingDate = (e) => {
-        setDate(e.target.value)
-        convertDateToDesiredFormat(e.target.value)
     }
 
     return (

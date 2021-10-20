@@ -2,16 +2,16 @@
 
 .main-container{
   margin: 30px;
-  border: 1px solid salmon;
+  border: 1px solid darkolivegreen;
 }
 
 body {
   font-family: 'Oswald', sans-serif;
-  background-color: FFF7F3;
+  background-color: whitesmoke;
 }
 
 h1{
-  color: salmon;
+  color: darkolivegreen;
 }
 
 .header{
@@ -25,12 +25,12 @@ h1{
   margin-top: 15px;
   display: inline-block;
   text-decoration: none;
-  color: white;
+  color: whitesmoke;
   font-weight: lighter;
-  background-color:salmon; 
+  background-color: darkolivegreen; 
   padding: 5px;
   font-size: 14px;
-  border: 1px solid salmon; 
+  border: 1px solid darkolivegreen; 
 }
 
 .close-button{
@@ -57,7 +57,7 @@ h1{
 }
 
 .taskBox.Highlight{
-  border: 3px solid salmon;
+  border: 3px solid darkolivegreen;
 }
 
 .taskName{
@@ -73,7 +73,7 @@ h1{
   margin-right: 20px;
   /*size: 50px;  */
   float: right;
-  color: salmon;
+  color: darkolivegreen;
   cursor: pointer;
 }
 

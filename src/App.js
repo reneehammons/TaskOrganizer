@@ -40,7 +40,6 @@ function App() {
 
   //addTask adds the inputed task to the tasks state
   const addTask = async (task) => {
-    
     const response = await fetch('http://localhost:5000/tasks', {
       method: 'POST',
       headers: {
@@ -84,7 +83,8 @@ function App() {
       task.id === id ? { ...task, highlight: data.highlight } : task)
     )
   }
-
+  //line 91 is conditional rendering, (true && expression) will evaluate the expression
+  //(false && expression) expression will be ignored
   return (
     <div className="main-container">
       <Header onClick={addTaskDropdown} dropdown={dropdown}/>
