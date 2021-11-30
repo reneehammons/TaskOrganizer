@@ -2,7 +2,7 @@
 
 .main-container{
   margin: 30px;
-  border: 1px solid darkolivegreen;
+  border: 2px solid #E27D60;
 }
 
 body {
@@ -11,7 +11,8 @@ body {
 }
 
 h1{
-  color: darkolivegreen;
+  color: #E27D60;
+  font-size: 40px;
 }
 
 .header{
@@ -23,26 +24,28 @@ h1{
 
 .add-button{
   margin-top: 15px;
+  margin-right: 40px;
   display: inline-block;
   text-decoration: none;
   color: whitesmoke;
   font-weight: lighter;
-  background-color: darkolivegreen; 
-  padding: 5px;
-  font-size: 14px;
-  border: 1px solid darkolivegreen; 
+  background-image: linear-gradient(to bottom right, #E27D60,#E8A87C);
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid #E8A87C;
+  border-radius: 10px;;
 }
 
 .close-button{
-  margin-right: 10px;
+  margin-right: 30px;
   margin-top: 15px;
   display: inline-block;
   text-decoration: none;
   color: black;
   font-weight: lighter;
   background-color: F3F3F3; 
-  padding: 5px;
-  font-size: 14px;
+  padding: 7px;
+  font-size: 15px;
   border: 1px solid F3F3F3; 
 }
 
@@ -57,7 +60,7 @@ h1{
 }
 
 .taskBox.Highlight{
-  border: 3px solid darkolivegreen;
+  border: 3px solid #E27D60;
 }
 
 .taskName{
@@ -71,14 +74,14 @@ h1{
 .glyphicon.glyphicon-trash{
   margin-top: -12px;
   margin-right: 20px;
-  /*size: 50px;  */
   float: right;
-  color: darkolivegreen;
+  color: #E27D60;
   cursor: pointer;
 }
 
 .addTaskForm{
   margin: 0px 10px 20px 20px;
   border: black;
+  text-size: 20px;
 }
 

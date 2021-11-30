@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
 const AddTask = ({onAdd}) => {
     const [id, setId] = useState(Math.floor(Math.random() * 10000) + 1)

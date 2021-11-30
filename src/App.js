@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
-import Header from './components/Header'
-import Tasks from './components/Tasks'
-import AddTask from './components/AddTask'
+import { useState, useEffect } from 'react';
+import Header from './components/Header';
+import Tasks from './components/Tasks';
+import AddTask from './components/AddTask';
 
 function App() {
   const [dropdown, setDropdown] = useState(false)
@@ -25,7 +25,7 @@ function App() {
     return data
   }
 
-  //Fetch Task
+  //Fetch Task for highlightTask function
   const fetchTask = async (id) => {
     const response = await fetch(`http://localhost:5000/tasks/${id}`)
     const data = await response.json()
