@@ -10,6 +10,7 @@ const AddTask = ({onAdd}) => {
     const [meridiem, setMeridiem] = useState('')
     const [highlight, setHighlight] = useState(false)
 
+
     const settingTimeStateAndConvertingTime = (e) => {
         //sets initial input to militaryTime state
         setMilitaryTime(e.target.value)
@@ -57,10 +58,9 @@ const AddTask = ({onAdd}) => {
 
     const onSubmit = (e) => {
         e.preventDefault()
+        onAdd({id, text, date, desiredDateDisplay, militaryTime, regularTime, meridiem, highlight})
 
-        onAdd({ id, text, date, desiredDateDisplay, militaryTime, regularTime, meridiem, highlight})
-
-        setId('')
+        setId(Math.floor(Math.random() * 10000) + 1)
         setText('')
         setDate('')
         setDesiredDateDisplay('')

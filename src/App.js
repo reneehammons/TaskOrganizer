@@ -9,28 +9,30 @@ function App() {
   const [tasks, setTasks] = useState([])
 
   useEffect(() => {
-    const getTasks= async () => {
-      const tasksFromServer = await fetchTasks()
-      setTasks(tasksFromServer)
-    }
+    var taskList = fetchTasks()
+    setTasks(taskList)
+  }, [])
 
-    getTasks()
+  useEffect(() => {
+    if (window.performance) {
+      if (PerformanceNavigationTiming.type === "nagivate" || "reload") {
+        sessionStorage.clear();
+      }
+    }
   }, [])
 
   //Fetch Tasks
-  const fetchTasks = async () => {
-    const response = await fetch('http://localhost:5000/tasks')
-    const data = await response.json()
+  const fetchTasks = () => {
+    var taskList = [];
+    for (var i = 0; i < sessionStorage.length; i++) {
+      // set iteration key name
+      var key = sessionStorage.key(i)
+      // use key name to retrieve the corresponding value
+      var value = JSON.parse(JSON.stringify(sessionStorage.getItem(key)))
 
-    return data
-  }
-
-  //Fetch Task for highlightTask function
-  const fetchTask = async (id) => {
-    const response = await fetch(`http://localhost:5000/tasks/${id}`)
-    const data = await response.json()
-
-    return data
+      taskList.push(value)
+    }
+    return taskList
   }
 
   //addTaskDropdown sets the dropdown state to a boolean
@@ -39,59 +41,27 @@ function App() {
   }
 
   //addTask adds the inputed task to the tasks state
-  const addTask = async (task) => {
-    const response = await fetch('http://localhost:5000/tasks', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(task)
-    })
-
-    const data = await response.json()
-
-    setTasks([...tasks, data])
+  const addTask = (task) => {
+    sessionStorage.setItem(task.id, JSON.stringify(task))
+    
+    setTasks([...tasks, task])
   }
 
   //deleteTask removes the task from the tasks state
-  const deleteTask = async (id) => {
-    const response = await fetch(`http://localhost:5000/tasks/${id}`, {
-      method: 'DELETE',
-    })
-
-    response.status === 200 
-      ? setTasks(tasks.filter((task) => task.id !== id)) 
-      : alert('Error Deleting Task')
+  const deleteTask = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id))
+    sessionStorage.removeItem(id)
   }
 
-  //highlightTask 
-  const highlightTask = async (id) => {
-    const taskToHighlight = await fetchTask(id)
-    const updatedTask = {...taskToHighlight, highlight: !taskToHighlight.highlight}
-
-    const response = await fetch(`http://localhost:5000/tasks/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(updatedTask)
-    })
-
-    const data = await response.json()
-
-    setTasks(tasks.map((task) => 
-      task.id === id ? { ...task, highlight: data.highlight } : task)
-    )
-  }
   //line 91 is conditional rendering, (true && expression) will evaluate the expression
   //(false && expression) expression will be ignored
   return (
     <div className="main-container">
       <Header onClick={addTaskDropdown} dropdown={dropdown}/>
       {dropdown && <AddTask onAdd={addTask}/>}
-      <Tasks tasks={tasks} onDelete={deleteTask} onHighlight={highlightTask} />
+      <Tasks tasks={tasks} onDelete={deleteTask} />
     </div>
   )
 }
 
-export default App
+export default App;

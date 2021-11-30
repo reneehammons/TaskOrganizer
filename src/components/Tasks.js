@@ -12,7 +12,6 @@ const Tasks = ({ tasks, onDelete, onHighlight }) => {
                     key={index} 
                     task={task} 
                     onDelete={onDelete} 
-                    onHighlight={onHighlight}
                 />
             ))}
         </div>
